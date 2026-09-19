@@ -3,121 +3,635 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WoWatch 隐私政策 · Privacy Policy</title>
+<title>WoWatch 隐私政策 · 隱私權政策 · Privacy · Confidentialité · Datenschutz · プライバシー · 개인정보 · الخصوصية</title>
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-         max-width: 760px; margin: 0 auto; padding: 24px 18px 64px;
-         line-height: 1.7; color: #1d1d1f; background: #fbfbfd; }
-  h1 { font-size: 26px; } h2 { font-size: 19px; margin-top: 34px; }
-  hr { border: none; border-top: 1px solid #e5e5ea; margin: 40px 0; }
-  .muted { color: #6e6e73; font-size: 13px; }
-  ul { padding-left: 22px; }
+  :root {
+    color-scheme: light dark;
+    /* 莫兰迪 token —— 与 App Theme.swift 同源 */
+    --page: #f2ede6;            /* 燕麦米白 */
+    --ink: #2b2721;
+    --muted: #80776c;
+    --card: rgba(255, 253, 248, 0.70);
+    --card-strong: rgba(255, 254, 250, 0.90);
+    --stroke: rgba(60, 48, 36, 0.08);
+    --highlight: rgba(255, 255, 255, 0.70);
+    --accent: #556877;          /* 雾霾蓝（文字强调） */
+    --accent-fill: #7a8b9b;
+    --accent-soft: rgba(122, 139, 155, 0.14);
+    --aura-1: rgba(122, 139, 155, 0.34);   /* 雾霾蓝光斑 */
+    --aura-2: rgba(155, 143, 158, 0.28);   /* 烟紫光斑 */
+    --aura-3: rgba(194, 166, 122, 0.30);   /* 沙金光斑 */
+    --shadow: rgba(58, 46, 34, 0.12);
+  }
   @media (prefers-color-scheme: dark) {
-    body { background: #1c1c1e; color: #f2f2f7; }
-    hr { border-color: #38383a; } .muted { color: #98989d; }
+    :root {
+      --page: #1a1815;          /* 暖炭近黑 */
+      --ink: #f2ede6;
+      --muted: #a89e92;
+      --card: rgba(40, 36, 31, 0.60);
+      --card-strong: rgba(44, 40, 34, 0.86);
+      --stroke: rgba(255, 255, 255, 0.10);
+      --highlight: rgba(255, 255, 255, 0.09);
+      --accent: #9db4c6;
+      --accent-fill: #9db4c6;
+      --accent-soft: rgba(157, 180, 198, 0.20);
+      --aura-1: rgba(157, 180, 198, 0.24);
+      --aura-2: rgba(189, 174, 193, 0.20);
+      --aura-3: rgba(212, 188, 142, 0.18);
+      --shadow: rgba(0, 0, 0, 0.50);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                 "PingFang SC", "PingFang TC", "Hiragino Sans GB", "Hiragino Sans",
+                 "Yu Gothic", "Apple SD Gothic Neo",
+                 "Helvetica Neue", "Segoe UI", "Geeza Pro", "Noto Naskh Arabic",
+                 Arial, sans-serif;
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 莫兰迪漫散光斑（Liquid Glass 的折射环境） ── */
+  .aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .aurora span {
+    position: absolute; width: 46vmax; height: 46vmax; border-radius: 50%;
+    filter: blur(90px); will-change: transform;
+  }
+  .aurora .b1 { background: var(--aura-1); top: -18vmax; left: -10vmax; animation: drift1 26s ease-in-out infinite alternate; }
+  .aurora .b2 { background: var(--aura-2); bottom: -22vmax; right: -14vmax; animation: drift2 32s ease-in-out infinite alternate; }
+  .aurora .b3 { background: var(--aura-3); top: 30vh; right: 18vw; width: 30vmax; height: 30vmax; animation: drift3 38s ease-in-out infinite alternate; }
+  @keyframes drift1 { to { transform: translate(6vmax, 5vmax) scale(1.12); } }
+  @keyframes drift2 { to { transform: translate(-5vmax, -6vmax) scale(1.08); } }
+  @keyframes drift3 { to { transform: translate(-4vmax, 7vmax) scale(0.92); } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .aurora span { animation: none; }
+  }
+
+  .wrap { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 0 18px 72px; }
+
+  /* ── Hero 玻璃卡 ── */
+  .hero {
+    margin: 40px 0 14px; padding: 36px 32px 30px; text-align: center;
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 28px;
+    backdrop-filter: blur(30px) saturate(1.7);
+    -webkit-backdrop-filter: blur(30px) saturate(1.7);
+    box-shadow: 0 1px 0 var(--highlight) inset, 0 24px 60px -18px var(--shadow);
+  }
+  .brand-badge {
+    display: block; width: 72px; height: 72px; margin: 0 auto 16px;
+    border-radius: 22.37%;   /* 近似 iOS 连续曲率圆角（squircle） */
+    overflow: hidden;
+    box-shadow: 0 16px 34px -12px var(--shadow), 0 2px 8px rgba(0, 0, 0, 0.10);
+    transition: transform .25s ease;
+  }
+  .brand-badge:hover { transform: translateY(-2px) scale(1.04); }
+  .brand-badge img { display: block; width: 100%; height: 100%; }
+  .hero h1 { font-size: 28px; margin: 4px 0 10px; letter-spacing: 0.2px; }
+  .hero p { margin: 0; color: var(--muted); font-size: 15px; }
+  .date-pill {
+    display: inline-block; margin-top: 16px; padding: 5px 14px;
+    font-size: 12.5px; color: var(--accent);
+    background: var(--accent-soft); border-radius: 999px;
+    border: 1px solid var(--stroke);
+  }
+
+  /* ── 语言切换玻璃胶囊 ── */
+  .lang-nav {
+    position: sticky; top: 12px; z-index: 10;
+    margin: 18px 0 8px; padding: 6px;
+    display: flex; gap: 4px; justify-content: center; flex-wrap: wrap;
+    background: var(--card-strong);
+    border: 1px solid var(--stroke);
+    border-radius: 999px;
+    backdrop-filter: blur(24px) saturate(1.6);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6);
+    box-shadow: 0 1px 0 var(--highlight) inset, 0 12px 32px -14px var(--shadow);
+  }
+  .lang-nav a {
+    padding: 6px 15px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; text-decoration: none;
+    color: var(--muted); transition: color .2s ease, background .2s ease;
+  }
+  .lang-nav a:hover { color: var(--ink); background: var(--accent-soft); }
+
+  /* ── 语言分区玻璃卡 ── */
+  section.lang {
+    margin: 22px 0; padding: 30px 32px 34px;
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 24px;
+    backdrop-filter: blur(28px) saturate(1.65);
+    -webkit-backdrop-filter: blur(28px) saturate(1.65);
+    box-shadow: 0 1px 0 var(--highlight) inset, 0 18px 50px -16px var(--shadow);
+    scroll-margin-top: 84px;
+  }
+  section.lang:target {
+    box-shadow: 0 0 0 2px var(--accent-fill), 0 1px 0 var(--highlight) inset,
+                0 18px 50px -16px var(--shadow);
+  }
+  section.lang h1 { font-size: 23px; margin: 0 0 6px; }
+  section.lang > .updated { color: var(--muted); font-size: 13px; margin: 0 0 18px; }
+
+  h2 {
+    font-size: 17px; margin: 30px 0 12px; padding-left: 13px;
+    border-left: 3.5px solid var(--accent-fill); border-radius: 2px;
+    line-height: 1.35;
+  }
+  section.lang h2:first-of-type { margin-top: 20px; }
+  p { margin: 10px 0; }
+  ul { margin: 10px 0; padding-left: 20px; }
+  li { margin: 8px 0; }
+  li::marker { color: var(--accent-fill); }
+  strong { font-weight: 650; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  hr { border: none; border-top: 1px solid var(--stroke); margin: 34px 0; }
+
+  /* ── 阿拉伯语 RTL 镜像 ── */
+  section[dir="rtl"] { text-align: right; line-height: 1.95; }
+  section[dir="rtl"] h2 {
+    padding-left: 0; padding-right: 13px;
+    border-left: none; border-right: 3.5px solid var(--accent-fill);
+  }
+  section[dir="rtl"] ul { padding-left: 0; padding-right: 20px; }
+
+  .footer-links { text-align: center; margin-top: 30px; }
+  .pill-link {
+    display: inline-block; margin: 4px 6px; padding: 9px 20px;
+    border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 600;
+    color: var(--accent); background: var(--card-strong);
+    border: 1px solid var(--stroke);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 1px 0 var(--highlight) inset, 0 8px 22px -12px var(--shadow);
+    transition: transform .18s ease;
+  }
+  .pill-link:hover { transform: translateY(-1px); }
+  .copyright { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 22px; }
+
+  @media (max-width: 560px) {
+    .hero { padding: 30px 22px 26px; border-radius: 24px; }
+    section.lang { padding: 24px 20px 28px; border-radius: 20px; scroll-margin-top: 108px; }
+    .lang-nav a { padding: 6px 13px; font-size: 13px; }
   }
 </style>
 </head>
 <body>
 
-<h1>WoWatch 隐私政策</h1>
-<p class="muted">最后更新：2026 年 9 月 13 日</p>
+<div class="aurora" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
 
-<p>WoWatch（以下简称「本应用」）是一款用于记录与管理个人腕表收藏、走时测时与保养提醒的工具。我们的核心原则是：<strong>你的数据只属于你，默认全部保存在本机</strong>。</p>
+<div class="wrap">
 
-<h2>一、我们收集的数据</h2>
-<ul>
-  <li><strong>我们不运营服务器，不注册账号，不收集姓名、电话、联系方式或任何身份信息。</strong></li>
-  <li><strong>腕表数据与照片：</strong>你录入的腕表资料、照片、相册图片、录音与测时记录均只保存在你的设备本地（系统 SwiftData 存储），不会上传给我们。</li>
-  <li><strong>位置信息（城市级、一次性）：</strong>仅在你使用天气功能时，应用会读取一次城市级（约 3 公里精度）位置，直接发送给第三方公共天气服务 <a href="https://open-meteo.com">Open-Meteo</a> 以查询当地天气，并在晴天时提醒你为太阳能腕表充电。该位置不会被本应用保存、不会与你的身份关联，也不用于跟踪。你可以拒绝定位授权，应用其余功能不受影响。</li>
-  <li><strong>网络授时：</strong>校时功能会向公共 NTP 时间服务器（Apple、Cloudflare、Google、阿里云、pool.ntp.org）发送仅约 48 字节的标准时间请求，请求中不含任何个人信息。</li>
-</ul>
+  <header class="hero">
+    <picture class="brand-badge">
+      <source srcset="assets/app-icon-dark.png" media="(prefers-color-scheme: dark)">
+      <img src="assets/app-icon-light.png" alt="WoWatch" width="72" height="72">
+    </picture>
+    <h1>WoWatch</h1>
+    <p>隐私政策 · 隱私權政策 · Privacy Policy · Politique de confidentialité · Datenschutzrichtlinie · プライバシーポリシー · 개인정보 처리방침 · سياسة الخصوصية</p>
+    <span class="date-pill">2026-09-16</span>
+  </header>
 
-<h2>二、数据的使用</h2>
-<ul>
-  <li>所有本地数据仅用于在应用内向你展示收藏、测算走时偏差、生成保养与充电提醒。</li>
-  <li>本应用不含广告、不含第三方跟踪 SDK、不进行跨应用或跨网站跟踪。</li>
-</ul>
+  <nav class="lang-nav" aria-label="语言 / Language / Langue / Sprache / 言語 / 언어 / اللغة">
+    <a href="#zh">简体中文</a>
+    <a href="#hant">繁體中文</a>
+    <a href="#en">English</a>
+    <a href="#fr">Français</a>
+    <a href="#de">Deutsch</a>
+    <a href="#ja">日本語</a>
+    <a href="#ko">한국어</a>
+    <a href="#ar">العربية</a>
+  </nav>
 
-<h2>三、数据共享与披露</h2>
-<p>我们不会向任何第三方出售、出租或披露你的个人数据。天气查询由你的设备直接与 Open-Meteo 通信，适用其 <a href="https://open-meteo.com/en/legal">隐私政策</a>。</p>
+  <!-- ───────────── 中文 ───────────── -->
+  <section class="lang" id="zh" lang="zh-Hans">
+    <h1>WoWatch 隐私政策</h1>
+    <p class="updated">最后更新：2026 年 9 月 16 日</p>
 
-<h2>四、数据存储与删除</h2>
-<ul>
-  <li>数据存储于本机；通过「备份与恢复」功能导出的 JSON 文件由你自行保管。</li>
-  <li>删除某只腕表或删除本应用，即从设备上永久移除对应数据。</li>
-  <li>iOS 系统可能通过你本人控制的 iCloud 备份加密备份应用数据，受 Apple 隐私条款约束。</li>
-</ul>
+    <p>WoWatch（以下简称「本应用」）是一款用于记录与管理个人腕表收藏、走时测时、资产价值与保养提醒的工具。我们的核心原则是：<strong>你的数据只属于你，默认全部保存在本机</strong>。</p>
 
-<h2>五、系统权限</h2>
-<ul>
-  <li>相机：拍摄腕表外观用于走时比对（仅在你主动拍照时）。</li>
-  <li>相册：选取腕表照片；应用不会在未经你操作时写入相册。</li>
-  <li>麦克风：录制擒纵节拍声以测算机械表走时，录音仅在测时进行时发生且不被保存。</li>
-  <li>面容 ID：仅用于解锁你本机上的保卡加密信息，生物特征不离开设备。</li>
-  <li>定位：仅「使用 App 期间」的一次性城市级位置，用于天气查询。</li>
-  <li>通知：发送本地的保养、上链与太阳能充电提醒，无需联网。</li>
-</ul>
+    <h2>一、我们收集的数据</h2>
+    <ul>
+      <li><strong>我们不运营服务器，不注册账号，不收集姓名、电话、联系方式或任何身份信息。</strong></li>
+      <li><strong>腕表数据与照片：</strong>你录入的腕表资料、照片、相册图片、录音与测时记录均只保存在你的设备本地（系统 SwiftData 存储），不会上传给我们。</li>
+      <li><strong>位置信息（城市级、一次性）：</strong>仅在你使用天气功能时，应用会读取一次城市级（约 3 公里精度）位置，直接发送给第三方公共天气服务 <a href="https://open-meteo.com">Open-Meteo</a> 以查询当地天气，并在晴天时提醒你为太阳能腕表充电。该位置不会被本应用保存、不会与你的身份关联，也不用于跟踪。你可以拒绝定位授权，应用其余功能不受影响。</li>
+      <li><strong>网络授时：</strong>校时功能会向公共 NTP 时间服务器（Apple、Cloudflare、Google、阿里云、pool.ntp.org）发送仅约 48 字节的标准时间请求，请求中不含任何个人信息。</li>
+      <li><strong>实时汇率：</strong>当你为腕表填写购入价格（支持多币种）或查看收藏总价值时，应用会在进入表库时向第三方公共汇率服务 <a href="https://www.exchangerate-api.com">open.er-api.com</a> 请求公开汇率牌价（本地缓存 15 分钟，期内不重复请求），用于将不同币种的价格换算汇总。该请求仅获取公开牌价，<strong>不包含你的腕表数据、位置或任何身份信息</strong>；离线或请求失败时，应用使用本机缓存或内置近似汇率，功能不受影响。</li>
+    </ul>
 
-<h2>六、儿童</h2>
-<p>本应用不针对 13 岁以下儿童，亦不主动收集任何儿童数据。</p>
+    <h2>二、数据的使用</h2>
+    <ul>
+      <li>所有本地数据仅用于在应用内向你展示收藏、测算走时偏差、生成保养与充电提醒。</li>
+      <li>本应用不含广告、不含第三方跟踪 SDK、不进行跨应用或跨网站跟踪。</li>
+    </ul>
 
-<h2>七、政策更新</h2>
-<p>政策如有变更，我们会在本页面更新并修订日期。</p>
+    <h2>三、数据共享与披露</h2>
+    <p>我们不会向任何第三方出售、出租或披露你的个人数据。天气查询由你的设备直接与 Open-Meteo 通信，适用其 <a href="https://open-meteo.com/en/legal">隐私政策</a>；汇率牌价由你的设备直接向 open.er-api.com（由 <a href="https://www.exchangerate-api.com">ExchangeRate-API</a> 运营）请求，适用其服务条款。上述请求均不附带你的个人数据。</p>
 
-<h2>八、联系我们</h2>
-<p>如对本政策有任何疑问，请联系：<a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a></p>
+    <h2>四、数据存储与删除</h2>
+    <ul>
+      <li>数据存储于本机；通过「备份与恢复」功能导出的 JSON 文件由你自行保管。</li>
+      <li>删除某只腕表或删除本应用，即从设备上永久移除对应数据。</li>
+      <li>iOS 系统可能通过你本人控制的 iCloud 备份加密备份应用数据，受 Apple 隐私条款约束。</li>
+    </ul>
 
-<hr>
+    <h2>五、系统权限</h2>
+    <ul>
+      <li>相机：拍摄腕表外观用于走时比对（仅在你主动拍照时）。</li>
+      <li>相册：选取腕表照片；应用不会在未经你操作时写入相册。</li>
+      <li>麦克风：录制擒纵节拍声以测算机械表走时，录音仅在测时进行时发生且不被保存。</li>
+      <li>面容 ID：仅用于解锁你本机上的保卡加密信息，生物特征不离开设备。</li>
+      <li>定位：仅「使用 App 期间」的一次性城市级位置，用于天气查询。</li>
+      <li>通知：发送本地的保养、上链与太阳能充电提醒，无需联网。</li>
+    </ul>
 
-<h1>Privacy Policy (English)</h1>
-<p class="muted">Last updated: September 13, 2026</p>
+    <h2>六、儿童</h2>
+    <p>本应用不针对 13 岁以下儿童，亦不主动收集任何儿童数据。</p>
 
-<p>WoWatch (“we”, “the App”) is a tool for managing a personal watch collection, timing measurements and service reminders. Our principle is simple: <strong>your data stays yours and is, by default, stored entirely on your device.</strong></p>
+    <h2>七、政策更新</h2>
+    <p>政策如有变更，我们会在本页面更新并修订日期。</p>
 
-<h2>1. Data We Collect</h2>
-<ul>
-  <li><strong>We do not operate servers, offer accounts, or collect your name, phone number, contact details or any identifying information.</strong></li>
-  <li><strong>Watch data &amp; photos:</strong> watch details, photos, album images, audio recordings and timing records you create are stored locally on your device (SwiftData) and are never uploaded to us.</li>
-  <li><strong>Location (coarse, one-time):</strong> only when you use the weather feature, the app reads a one-time city-level location (≈3 km accuracy) and sends it directly to the third-party public weather service <a href="https://open-meteo.com">Open-Meteo</a> to look up local weather and, on sunny days, remind you to charge solar watches. This location is not stored by the app, not linked to your identity and never used for tracking. You may deny location access; all other features remain available.</li>
-  <li><strong>Network time:</strong> clock sync sends an ~48-byte standard NTP request to public time servers (Apple, Cloudflare, Google, Aliyun, pool.ntp.org). The request contains no personal information.</li>
-</ul>
+    <h2>八、联系我们</h2>
+    <p>如对本政策有任何疑问，请联系：<a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a></p>
+  </section>
 
-<h2>2. How Data Is Used</h2>
-<ul>
-  <li>Local data is used solely to display your collection, measure rate accuracy and generate service, winding and solar-charge reminders inside the app.</li>
-  <li>The app contains no advertising, no third-party tracking SDKs, and does not track you across apps or websites.</li>
-</ul>
+  <!-- ───────────── English ───────────── -->
+  <section class="lang" id="en" lang="en">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: September 16, 2026</p>
 
-<h2>3. Sharing &amp; Disclosure</h2>
-<p>We never sell, rent or disclose your personal data to third parties. Weather requests go directly from your device to Open-Meteo, whose <a href="https://open-meteo.com/en/legal">privacy policy</a> applies.</p>
+    <p>WoWatch (“we”, “the App”) is a tool for managing a personal watch collection, timing measurements, collection value and service reminders. Our principle is simple: <strong>your data stays yours and is, by default, stored entirely on your device.</strong></p>
 
-<h2>4. Data Retention &amp; Deletion</h2>
-<ul>
-  <li>Data resides on your device; JSON files exported via Backup/Restore are managed by you.</li>
-  <li>Deleting a watch, or deleting the app, permanently removes the corresponding data from your device.</li>
-  <li>iOS may back up app data via your own encrypted iCloud Backup, governed by Apple’s privacy terms.</li>
-</ul>
+    <h2>1. Data We Collect</h2>
+    <ul>
+      <li><strong>We do not operate servers, offer accounts, or collect your name, phone number, contact details or any identifying information.</strong></li>
+      <li><strong>Watch data &amp; photos:</strong> watch details, photos, album images, audio recordings and timing records you create are stored locally on your device (SwiftData) and are never uploaded to us.</li>
+      <li><strong>Location (coarse, one-time):</strong> only when you use the weather feature, the app reads a one-time city-level location (≈3 km accuracy) and sends it directly to the third-party public weather service <a href="https://open-meteo.com">Open-Meteo</a> to look up local weather and, on sunny days, remind you to charge solar watches. This location is not stored by the app, not linked to your identity and never used for tracking. You may deny location access; all other features remain available.</li>
+      <li><strong>Network time:</strong> clock sync sends an ~48-byte standard NTP request to public time servers (Apple, Cloudflare, Google, Aliyun, pool.ntp.org). The request contains no personal information.</li>
+      <li><strong>Live exchange rates:</strong> when you enter purchase prices in multiple currencies or view your collection value, the app fetches public currency rates from the third-party service <a href="https://www.exchangerate-api.com">open.er-api.com</a> when you open the library (cached locally for 15 minutes), so prices in different currencies can be converted and totaled. The request retrieves only public rates and <strong>contains no watch data, location or identifying information</strong>. If it fails or you are offline, the app uses cached or built-in approximate rates instead.</li>
+    </ul>
 
-<h2>5. System Permissions</h2>
-<ul>
-  <li>Camera: capture the watch for timing comparison, only when you take a photo.</li>
-  <li>Photo Library: choose watch photos; the app never writes to your library without your action.</li>
-  <li>Microphone: record the escapement tick to measure a mechanical watch’s rate; recording occurs only during a test and is not saved.</li>
-  <li>Face ID: unlock the on-device warranty card vault only; biometrics never leave the device.</li>
-  <li>Location: one-time coarse “while using” location for weather lookup.</li>
-  <li>Notifications: local service, winding and solar-charge reminders; no network required.</li>
-</ul>
+    <h2>2. How Data Is Used</h2>
+    <ul>
+      <li>Local data is used solely to display your collection, measure rate accuracy and generate service, winding and solar-charge reminders inside the app.</li>
+      <li>The app contains no advertising, no third-party tracking SDKs, and does not track you across apps or websites.</li>
+    </ul>
 
-<h2>6. Children</h2>
-<p>The app is not directed to children under 13 and does not knowingly collect any data from children.</p>
+    <h2>3. Sharing &amp; Disclosure</h2>
+    <p>We never sell, rent or disclose your personal data to third parties. Weather requests go directly from your device to Open-Meteo, whose <a href="https://open-meteo.com/en/legal">privacy policy</a> applies; currency rates are fetched directly from open.er-api.com, operated by <a href="https://www.exchangerate-api.com">ExchangeRate-API</a>, whose own terms apply. Neither request includes your personal data.</p>
 
-<h2>7. Changes</h2>
-<p>If this policy changes, we will post the updated version and date on this page.</p>
+    <h2>4. Data Retention &amp; Deletion</h2>
+    <ul>
+      <li>Data resides on your device; JSON files exported via Backup/Restore are managed by you.</li>
+      <li>Deleting a watch, or deleting the app, permanently removes the corresponding data from your device.</li>
+      <li>iOS may back up app data via your own encrypted iCloud Backup, governed by Apple’s privacy terms.</li>
+    </ul>
 
-<h2>8. Contact</h2>
-<p>Questions about this policy? Contact us at <a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>.</p>
+    <h2>5. System Permissions</h2>
+    <ul>
+      <li>Camera: capture the watch for timing comparison, only when you take a photo.</li>
+      <li>Photo Library: choose watch photos; the app never writes to your library without your action.</li>
+      <li>Microphone: record the escapement tick to measure a mechanical watch’s rate; recording occurs only during a test and is not saved.</li>
+      <li>Face ID: unlock the on-device warranty card vault only; biometrics never leave the device.</li>
+      <li>Location: one-time coarse “while using” location for weather lookup.</li>
+      <li>Notifications: local service, winding and solar-charge reminders; no network required.</li>
+    </ul>
 
+    <h2>6. Children</h2>
+    <p>The app is not directed to children under 13 and does not knowingly collect any data from children.</p>
+
+    <h2>7. Changes</h2>
+    <p>If this policy changes, we will post the updated version and date on this page.</p>
+
+    <h2>8. Contact</h2>
+    <p>Questions about this policy? Contact us at <a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>.</p>
+  </section>
+
+  <!-- ───────────── Français ───────────── -->
+  <section class="lang" id="fr" lang="fr">
+    <h1>Politique de confidentialité</h1>
+    <p class="updated">Dernière mise à jour : 16 septembre 2026</p>
+
+    <p>WoWatch (« l'application ») est un outil permettant de gérer sa collection personnelle de montres, d'effectuer des mesures de marche, de suivre la valeur de sa collection et de recevoir des rappels d'entretien. Notre principe est simple : <strong>vos données vous appartiennent et sont, par défaut, entièrement stockées sur votre appareil.</strong></p>
+
+    <h2>1. Les données que nous collectons</h2>
+    <ul>
+      <li><strong>Nous n'exploitons aucun serveur, ne proposons aucun compte et ne collectons ni nom, ni numéro de téléphone, ni coordonnée, ni aucune information permettant de vous identifier.</strong></li>
+      <li><strong>Données et photos des montres :</strong> les informations, photos, images issues de votre photothèque, enregistrements audio et mesures de marche que vous créez sont stockés localement sur votre appareil (stockage SwiftData) et ne nous sont jamais transmis.</li>
+      <li><strong>Localisation (approximative, ponctuelle) :</strong> uniquement lorsque vous utilisez la fonction météo, l'application lit une seule fois une position au niveau de la ville (précision d'environ 3 km) et l'envoie directement au service météo public tiers <a href="https://open-meteo.com">Open-Meteo</a> pour connaître la météo locale et vous rappeler, par beau temps, de recharger les montres solaires. Cette position n'est pas enregistrée par l'application, n'est pas reliée à votre identité et n'est jamais utilisée à des fins de suivi. Vous pouvez refuser l'autorisation de localisation ; toutes les autres fonctions restent disponibles.</li>
+      <li><strong>Heure réseau :</strong> la synchronisation envoie une requête NTP standard d'environ 48 octets à des serveurs de temps publics (Apple, Cloudflare, Google, Aliyun, pool.ntp.org). La requête ne contient aucune information personnelle.</li>
+      <li><strong>Taux de change en direct :</strong> lorsque vous renseignez des prix d'achat dans plusieurs devises ou consultez la valeur de votre collection, l'application récupère, à l'ouverture de la collection, les taux publics auprès du service tiers <a href="https://www.exchangerate-api.com">open.er-api.com</a> (mise en cache locale pendant 15 minutes, sans requête répétée pendant ce délai) afin de convertir et totaliser les prix dans différentes devises. Cette requête se limite aux taux publics et <strong>ne contient aucune donnée de vos montres, aucune position ni information d'identification</strong> ; hors ligne ou en cas d'échec, l'application utilise les taux en cache ou des taux approximatifs intégrés, sans incidence sur le fonctionnement.</li>
+    </ul>
+
+    <h2>2. Utilisation des données</h2>
+    <ul>
+      <li>Les données locales servent uniquement à afficher votre collection, mesurer la précision de marche et générer dans l'application des rappels d'entretien, de remontage et de recharge solaire.</li>
+      <li>L'application ne contient aucune publicité, aucun SDK de suivi tiers et n'effectue aucun suivi entre applications ou entre sites web.</li>
+    </ul>
+
+    <h2>3. Partage et divulgation</h2>
+    <p>Nous ne vendons, ne louons ni ne divulguons jamais vos données personnelles à des tiers. Les requêtes météo sont envoyées directement de votre appareil à Open-Meteo, dont la <a href="https://open-meteo.com/en/legal">politique de confidentialité</a> s'applique ; les taux de change sont récupérés directement auprès de open.er-api.com, exploité par <a href="https://www.exchangerate-api.com">ExchangeRate-API</a>, dont les conditions d'utilisation s'appliquent. Aucune de ces requêtes ne contient vos données personnelles.</p>
+
+    <h2>4. Conservation et suppression des données</h2>
+    <ul>
+      <li>Les données résident sur votre appareil ; les fichiers JSON exportés via la fonction Sauvegarde/Restauration sont gérés par vos soins.</li>
+      <li>Supprimer une montre ou l'application élimine définitivement les données correspondantes de votre appareil.</li>
+      <li>iOS peut sauvegarder les données de l'application par le biais de votre sauvegarde iCloud chiffrée personnelle, régie par les conditions de confidentialité d'Apple.</li>
+    </ul>
+
+    <h2>5. Autorisations système</h2>
+    <ul>
+      <li>Appareil photo : photographier la montre pour la comparaison de marche, uniquement lorsque vous prenez une photo.</li>
+      <li>Photothèque : choisir des photos de montres ; l'application n'écrit jamais dans votre photothèque sans action de votre part.</li>
+      <li>Microphone : enregistrer le tic de l'échappement pour mesurer la marche d'une montre mécanique ; l'enregistrement n'a lieu que pendant le test et n'est pas conservé.</li>
+      <li>Face ID : utilisé uniquement pour déverrouiller le coffre local de la carte de garantie ; les données biométriques ne quittent jamais l'appareil.</li>
+      <li>Localisation : une position approximative unique « pendant l'utilisation » pour la météo.</li>
+      <li>Notifications : rappels locaux d'entretien, de remontage et de recharge solaire ; aucune connexion réseau requise.</li>
+    </ul>
+
+    <h2>6. Enfants</h2>
+    <p>L'application ne s'adresse pas aux enfants de moins de 13 ans et ne collecte sciemment aucune donnée les concernant.</p>
+
+    <h2>7. Modifications</h2>
+    <p>En cas de modification de la présente politique, nous publierons la version mise à jour et sa date sur cette page.</p>
+
+    <h2>8. Contact</h2>
+    <p>Pour toute question relative à cette politique, écrivez-nous à <a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>.</p>
+  </section>
+
+  <!-- ───────────── Deutsch ───────────── -->
+  <section class="lang" id="de" lang="de">
+    <h1>Datenschutzrichtlinie</h1>
+    <p class="updated">Zuletzt aktualisiert: 16. September 2026</p>
+
+    <p>WoWatch („die App") ist ein Werkzeug zur Verwaltung der persönlichen Uhrensammlung, für Gangmessungen, zur Erfassung des Sammlungswerts und für Wartungserinnerungen. Unser Grundsatz ist einfach: <strong>Ihre Daten gehören Ihnen und werden standardmäßig vollständig auf Ihrem Gerät gespeichert.</strong></p>
+
+    <h2>1. Erhobene Daten</h2>
+    <ul>
+      <li><strong>Wir betreiben keine Server, bieten keine Konten an und erfassen keinen Namen, keine Telefonnummer, Kontaktdaten oder sonstige Identifikationsinformationen.</strong></li>
+      <li><strong>Uhrendaten &amp; Fotos:</strong> von Ihnen erfasste Uhrenangaben, Fotos, Bilder aus der Fotomediathek, Audioaufnahmen und Messergebnisse werden lokal auf Ihrem Gerät gespeichert (SwiftData) und niemals an uns übermittelt.</li>
+      <li><strong>Standort (grob, einmalig):</strong> nur bei Nutzung der Wetterfunktion liest die App einmalig eine stadtscharfe Position (ca. 3 km Genauigkeit) und sendet diese direkt an den öffentlichen Drittwetterdienst <a href="https://open-meteo.com">Open-Meteo</a>, um das lokale Wetter abzufragen und Sie an sonnigen Tagen an das Laden von Solaruhren zu erinnern. Die Position wird von der App nicht gespeichert, nicht mit Ihrer Identität verknüpft und nicht für Tracking verwendet. Sie können den Standortzugriff verweigern; alle anderen Funktionen bleiben verfügbar.</li>
+      <li><strong>Netzwerkzeit:</strong> die Uhrensynchronisation sendet eine ca. 48 Byte große Standard-NTP-Anfrage an öffentliche Zeitserver (Apple, Cloudflare, Google, Aliyun, pool.ntp.org). Die Anfrage enthält keine personenbezogenen Daten.</li>
+      <li><strong>Live-Wechselkurse:</strong> wenn Sie Kaufpreise in mehreren Währungen eingeben oder Ihren Sammlungswert ansehen, ruft die App beim Öffnen der Sammlung öffentliche Kurse beim Drittanbieter <a href="https://www.exchangerate-api.com">open.er-api.com</a> ab (15 Minuten lokal zwischengespeichert, in dieser Zeit keine wiederholten Anfragen), um Preise umzurechnen und zu summieren. Die Anfrage enthält ausschließlich öffentliche Kurse und <strong>keine Uhren-, Standort- oder Identitätsdaten</strong>; offline oder bei einem Fehler verwendet die App zwischengespeicherte oder eingebaute ungefähre Kurse, die Funktion bleibt erhalten.</li>
+    </ul>
+
+    <h2>2. Verwendung der Daten</h2>
+    <ul>
+      <li>Lokale Daten dienen ausschließlich der Anzeige Ihrer Sammlung, der Gangmessung sowie der Erzeugung von Wartungs-, Aufzieh- und Solar-Ladeerinnerungen in der App.</li>
+      <li>Die App enthält keine Werbung, keine Drittanbieter-Tracking-SDKs und verfolgt Sie nicht app- oder websiteübergreifend.</li>
+    </ul>
+
+    <h2>3. Weitergabe &amp; Offenlegung</h2>
+    <p>Wir verkaufen, vermieten oder geben Ihre personenbezogenen Daten niemals an Dritte weiter. Wetteranfragen gehen direkt von Ihrem Gerät an Open-Meteo, dessen <a href="https://open-meteo.com/en/legal">Datenschutzrichtlinie</a> gilt; Wechselkurse werden direkt von open.er-api.com abgerufen, betrieben von <a href="https://www.exchangerate-api.com">ExchangeRate-API</a>, dessen Bedingungen gelten. Keine dieser Anfragen enthält Ihre personenbezogenen Daten.</p>
+
+    <h2>4. Speicherung &amp; Löschung</h2>
+    <ul>
+      <li>Die Daten befinden sich auf Ihrem Gerät; über Backup/Wiederherstellen exportierte JSON-Dateien verwalten Sie selbst.</li>
+      <li>Durch das Löschen einer Uhr oder der App werden die entsprechenden Daten dauerhaft von Ihrem Gerät entfernt.</li>
+      <li>iOS kann App-Daten über Ihr eigenes verschlüsseltes iCloud-Backup sichern; es gelten die Datenschutzbestimmungen von Apple.</li>
+    </ul>
+
+    <h2>5. Systemberechtigungen</h2>
+    <ul>
+      <li>Kamera: Aufnahme der Uhr für den Gangvergleich, nur wenn Sie ein Foto aufnehmen.</li>
+      <li>Fotomediathek: Auswahl von Uhrenfotos; die App schreibt ohne Ihre Aktion niemals in die Mediathek.</li>
+      <li>Mikrofon: Aufnahme des Hemmungsticks zur Gangmessung einer mechanischen Uhr; die Aufnahme erfolgt nur während des Tests und wird nicht gespeichert.</li>
+      <li>Face ID: ausschließlich zum Entsperren des lokalen Garantiekarten-Tresors; biometrische Daten verlassen das Gerät nicht.</li>
+      <li>Standort: einmaliger grober „während der Nutzung"-Zugriff für die Wetterabfrage.</li>
+      <li>Mitteilungen: lokale Wartungs-, Aufzieh- und Solar-Ladeerinnerungen; ohne Netzwerk.</li>
+    </ul>
+
+    <h2>6. Kinder</h2>
+    <p>Die App richtet sich nicht an Kinder unter 13 Jahren und erfasst wissentlich keine Daten von Kindern.</p>
+
+    <h2>7. Änderungen</h2>
+    <p>Bei Änderungen dieser Richtlinie veröffentlichen wir die aktualisierte Fassung samt Datum auf dieser Seite.</p>
+
+    <h2>8. Kontakt</h2>
+    <p>Fragen zu dieser Richtlinie? Kontakt: <a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>.</p>
+  </section>
+
+  <!-- ───────────── 繁體中文 ───────────── -->
+  <section class="lang" id="hant" lang="zh-Hant">
+    <h1>WoWatch 隱私權政策</h1>
+    <p class="updated">最後更新：2026 年 9 月 16 日</p>
+
+    <p>WoWatch（以下簡稱「本應用程式」）是一款用於記錄與管理個人腕錶收藏、走時測時、資產價值與保養提醒的工具。我們的核心原則是：<strong>你的資料只屬於你，預設全部儲存在本機</strong>。</p>
+
+    <h2>一、我們收集的資料</h2>
+    <ul>
+      <li><strong>我們不營運伺服器，不註冊帳號，不收集姓名、電話、聯絡方式或任何身份資訊。</strong></li>
+      <li><strong>腕錶資料與照片：</strong>你錄入的腕錶資料、照片、相簿圖片、錄音與測時記錄均只儲存在你的裝置本機（系統 SwiftData 儲存），不會上傳給我們。</li>
+      <li><strong>位置資訊（城市級、一次性）：</strong>僅在你使用天氣功能時，應用程式會讀取一次城市級（約 3 公里精度）位置，直接傳送給第三方公共天氣服務 <a href="https://open-meteo.com">Open-Meteo</a> 以查詢當地天氣，並在晴天時提醒你為太陽能腕錶充電。該位置不會被本應用程式儲存、不會與你的身份關聯，也不用於追蹤。你可以拒絕定位授權，應用程式其餘功能不受影響。</li>
+      <li><strong>網路授時：</strong>校時功能會向公共 NTP 時間伺服器（Apple、Cloudflare、Google、阿里雲、pool.ntp.org）傳送僅約 48 位元組的標準時間請求，請求中不含任何個人資訊。</li>
+      <li><strong>即時匯率：</strong>當你為腕錶填寫購入價格（支援多幣別）或檢視收藏總價值時，應用程式會在進入錶庫時向第三方公共匯率服務 <a href="https://www.exchangerate-api.com">open.er-api.com</a> 請求公開匯率牌價（本機快取 15 分鐘，期內不重複請求），用於將不同幣別的價格換算彙總。該請求僅取得公開牌價，<strong>不包含你的腕錶資料、位置或任何身份資訊</strong>；離線或請求失敗時，應用程式使用本機快取或內建近似匯率，功能不受影響。</li>
+    </ul>
+
+    <h2>二、資料的使用</h2>
+    <ul>
+      <li>所有本機資料僅用於在應用程式內向你展示收藏、測算走時偏差、產生保養與充電提醒。</li>
+      <li>本應用程式不含廣告、不含第三方追蹤 SDK、不進行跨應用程式或跨網站追蹤。</li>
+    </ul>
+
+    <h2>三、資料分享與揭露</h2>
+    <p>我們不會向任何第三方出售、出租或揭露你的個人資料。天氣查詢由你的裝置直接與 Open-Meteo 通信，適用其 <a href="https://open-meteo.com/en/legal">隱私權政策</a>；匯率牌價由你的裝置直接向 open.er-api.com（由 <a href="https://www.exchangerate-api.com">ExchangeRate-API</a> 營運）請求，適用其服務條款。上述請求均不附帶你的個人資料。</p>
+
+    <h2>四、資料儲存與刪除</h2>
+    <ul>
+      <li>資料儲存於本機；透過「備份與還原」功能匯出的 JSON 檔案由你自行保管。</li>
+      <li>刪除某隻腕錶或刪除本應用程式，即從裝置上永久移除對應資料。</li>
+      <li>iOS 系統可能透過你本人控制的 iCloud 備份加密備份應用程式資料，受 Apple 隱私權條款約束。</li>
+    </ul>
+
+    <h2>五、系統權限</h2>
+    <ul>
+      <li>相機：拍攝腕錶外觀用於走時比對（僅在你主動拍照時）。</li>
+      <li>相簿：選取腕錶照片；應用程式不會在未經你操作時寫入相簿。</li>
+      <li>麥克風：錄製擒縱節拍聲以測算機械錶走時，錄音僅在測時進行時發生且不被儲存。</li>
+      <li>Face ID：僅用於解鎖你本機上的保卡加密資訊，生物特徵不離開裝置。</li>
+      <li>定位：僅「使用 App 期間」的一次性城市級位置，用於天氣查詢。</li>
+      <li>通知：發送本機的保養、上鏈與太陽能充電提醒，無需連網。</li>
+    </ul>
+
+    <h2>六、兒童</h2>
+    <p>本應用程式不針對 13 歲以下兒童，亦不主動收集任何兒童資料。</p>
+
+    <h2>七、政策更新</h2>
+    <p>政策如有變更，我們會在本頁面更新並修訂日期。</p>
+
+    <h2>八、聯絡我們</h2>
+    <p>如對本政策有任何疑問，請聯絡：<a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a></p>
+  </section>
+
+  <!-- ───────────── 日本語 ───────────── -->
+  <section class="lang" id="ja" lang="ja">
+    <h1>WoWatch プライバシーポリシー</h1>
+    <p class="updated">最終更新日：2026年9月16日</p>
+
+    <p>WoWatch（以下「本アプリ」）は、個人の腕時計コレクションの管理、歩度測定、コレクション価値の記録、メンテナンス通知を行うためのツールです。私たちの原則はシンプルです。<strong>お客様のデータはお客様のものであり、原則としてすべてお使いの端末にのみ保存されます。</strong></p>
+
+    <h2>1. 収集するデータ</h2>
+    <ul>
+      <li><strong>私たちはサーバーを運用せず、アカウント登録もなく、氏名、電話番号、連絡先など本人を特定できる情報を一切収集しません。</strong></li>
+      <li><strong>時計データと写真：</strong>お客様が登録する時計情報、写真、アルバム画像、音声録音、測定記録はすべて端末内（SwiftData）にのみ保存され、私たちにアップロードされることはありません。</li>
+      <li><strong>位置情報（都市レベル・1回限り）：</strong>天気機能のご利用時に限り、アプリは都市レベル（精度約3km）の位置を1回だけ取得し、第三者の公開天気サービス <a href="https://open-meteo.com">Open-Meteo</a> に直接送信して現地の天気を照会し、晴れの日にはソーラー時計の充電をお知らせします。この位置はアプリに保存されず、本人情報とも関連付けられず、トラッキングにも使用されません。位置情報の利用を拒否しても、他の機能には影響しません。</li>
+      <li><strong>ネットワーク時刻：</strong>時刻合わせでは、Apple、Cloudflare、Google、Alibaba Cloud、pool.ntp.org の公開NTPサーバーへ約48バイトの標準時刻リクエストを送信します。リクエストに個人情報は含まれません。</li>
+      <li><strong>リアルタイム為替レート：</strong>複数の通貨で購入価格を入力するかコレクション総額を表示する際、アプリはライブラリを開くときに第三者の公開為替サービス <a href="https://www.exchangerate-api.com">open.er-api.com</a> から公開レートを取得し（15分間端末にキャッシュし、その間は再取得しません）、異なる通貨の価格を換算して集計します。このリクエストは公開レートの取得のみで、<strong>時計データ・位置情報・本人情報は一切含まれません</strong>。オフライン時やリクエスト失敗時はキャッシュ済みまたは内蔵の概算レートを使用するため、機能には影響しません。</li>
+    </ul>
+
+    <h2>2. データの利用</h2>
+    <ul>
+      <li>ローカルデータは、コレクションの表示、歩度の算出、メンテナンス・巻き上げ・ソーラー充電のリマインダー生成のためにのみアプリ内で使用されます。</li>
+      <li>本アプリには広告や第三者のトラッキングSDKはなく、アプリやウェブサイトを横断するトラッキングも行いません。</li>
+    </ul>
+
+    <h2>3. 共有と開示</h2>
+    <p>私たちはお客様の個人データを第三者に販売、賃貸、開示することは一切ありません。天気照会はお客様の端末から Open-Meteo に直接行われ、同社の<a href="https://open-meteo.com/en/legal">プライバシーポリシー</a>が適用されます。為替レートは <a href="https://www.exchangerate-api.com">ExchangeRate-API</a> が運営する open.er-api.com から直接取得され、同社の利用規約が適用されます。いずれのリクエストにもお客様の個人データは含まれません。</p>
+
+    <h2>4. データの保存と削除</h2>
+    <ul>
+      <li>データは端末に保存されます。バックアップ機能で書き出したJSONファイルはお客様ご自身で管理してください。</li>
+      <li>時計を削除するか本アプリを削除すると、該当データは端末から完全に削除されます。</li>
+      <li>iOSは、お客様が管理する暗号化済みiCloudバックアップを通じてアプリデータをバックアップする場合があり、Appleのプライバシー条件が適用されます。</li>
+    </ul>
+
+    <h2>5. システム権限</h2>
+    <ul>
+      <li>カメラ：時刻比較用に時計を撮影（お客様が写真を撮るときのみ）。</li>
+      <li>写真ライブラリ：時計の写真を選択。お客様の操作なしにライブラリへ書き込むことはありません。</li>
+      <li>マイク：機械式時計の歩度を測るためテンプの音を録音。録音は測定中のみ行われ、保存されません。</li>
+      <li>Face ID：端末上の保証書保管庫のロック解除にのみ使用。生体情報は端末の外に出ません。</li>
+      <li>位置情報：天気照会のための「Appの使用中」における1回限りのおおまかな位置。</li>
+      <li>通知：メンテナンス、巻き上げ、ソーラー充電のローカル通知。ネット接続は不要です。</li>
+    </ul>
+
+    <h2>6. 子ども</h2>
+    <p>本アプリは13歳未満の子どもを対象としておらず、子どものデータを意図的に収集することもありません。</p>
+
+    <h2>7. ポリシーの変更</h2>
+    <p>本ポリシーを変更する場合は、このページに更新版と更新日を掲載します。</p>
+
+    <h2>8. お問い合わせ</h2>
+    <p>本ポリシーについてご質問がある場合は、<a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a> までご連絡ください。</p>
+  </section>
+
+  <!-- ───────────── 한국어 ───────────── -->
+  <section class="lang" id="ko" lang="ko">
+    <h1>WoWatch 개인정보 처리방침</h1>
+    <p class="updated">최종 업데이트: 2026년 9월 16일</p>
+
+    <p>WoWatch(이하 '앱')는 개인 시계 컬렉션 관리, 정밀도 측정, 컬렉션 가치 기록 및 정비 알림을 위한 도구입니다. 저희의 원칙은 간단합니다. <strong>회원님의 데이터는 회원님의 것이며 기본적으로 기기에만 저장됩니다.</strong></p>
+
+    <h2>1. 수집하는 데이터</h2>
+    <ul>
+      <li><strong>저희는 서버를 운영하지 않고 계정을 제공하지 않으며 이름, 전화번호, 연락처 등 신원 정보를 수집하지 않습니다.</strong></li>
+      <li><strong>시계 데이터 및 사진:</strong> 입력하신 시계 정보, 사진, 앨범 이미지, 오디오 녹음 및 측정 기록은 모두 기기 로컬(SwiftData)에만 저장되며 저희에게 업로드되지 않습니다.</li>
+      <li><strong>위치 정보(도시 수준, 1회성):</strong> 날씨 기능 사용 시에만 앱이 도시 수준(약 3km 정확도)의 위치를 한 번 읽어 제3자 공공 날씨 서비스 <a href="https://open-meteo.com">Open-Meteo</a>로 직접 전송해 현지 날씨를 조회하고, 맑은 날에는 솔라 시계 충전을 안내합니다. 이 위치는 앱에 저장되지 않고 신원과 연결되지 않으며 추적에 사용되지 않습니다. 위치 권한을 거부해도 다른 기능은 그대로 사용할 수 있습니다.</li>
+      <li><strong>네트워크 시각:</strong> 시각 동기화는 Apple, Cloudflare, Google, 알리바바 클라우드, pool.ntp.org 등 공개 시간 서버로 약 48바이트의 표준 NTP 요청을 보내며, 요청에는 개인정보가 포함되지 않습니다.</li>
+      <li><strong>실시간 환율:</strong> 여러 통화로 구매 가격을 입력하거나 컬렉션 총가치를 볼 때, 앱은 라이브러리를 열 때 제3자 공공 환율 서비스 <a href="https://www.exchangerate-api.com">open.er-api.com</a>에서 공개 환율을 가져와(15분간 기기에 캐시되고 그 사이에는 재요청하지 않음) 서로 다른 통화의 가격을 환산·합산합니다. 이 요청은 공개 환율만 조회하며 <strong>시계 데이터, 위치 또는 신원 정보를 포함하지 않습니다</strong>. 오프라인이거나 요청이 실패하면 캐시된 환율이나 내장된 근사 환율을 사용하므로 기능에 영향이 없습니다.</li>
+    </ul>
+
+    <h2>2. 데이터 사용</h2>
+    <ul>
+      <li>로컬 데이터는 앱 내에서 컬렉션 표시, 정밀도 측정, 정비·와인딩·솔라 충전 알림 생성에만 사용됩니다.</li>
+      <li>앱에는 광고나 제3자 추적 SDK가 없으며 앱·웹사이트 간 추적을 하지 않습니다.</li>
+    </ul>
+
+    <h2>3. 공유 및 제공</h2>
+    <p>저희는 회원님의 개인정보를 제3자에게 판매·대여·제공하지 않습니다. 날씨 요청은 회원님의 기기에서 Open-Meteo로 직접 전송되며 해당 서비스의 <a href="https://open-meteo.com/en/legal">개인정보 처리방침</a>이 적용됩니다. 환율은 <a href="https://www.exchangerate-api.com">ExchangeRate-API</a>가 운영하는 open.er-api.com에서 직접 가져오며 해당 서비스 약관이 적용됩니다. 두 요청 모두 회원님의 개인정보를 포함하지 않습니다.</p>
+
+    <h2>4. 보관 및 삭제</h2>
+    <ul>
+      <li>데이터는 기기에 저장되며, 백업/복원으로 내보낸 JSON 파일은 회원님께서 직접 관리합니다.</li>
+      <li>시계 또는 앱을 삭제하면 해당 데이터가 기기에서 영구히 제거됩니다.</li>
+      <li>iOS는 회원님 본인이 관리하는 암호화된 iCloud 백업을 통해 앱 데이터를 백업할 수 있으며, Apple의 개인정보 약관이 적용됩니다.</li>
+    </ul>
+
+    <h2>5. 시스템 권한</h2>
+    <ul>
+      <li>카메라: 시각 비교용 시계 촬영(직접 사진을 찍을 때만).</li>
+      <li>사진 보관함: 시계 사진 선택. 회원님의 조작 없이 보관함에 저장하지 않습니다.</li>
+      <li>마이크: 기계식 시계의 정밀도 측정을 위한 태엽 소리 녹음. 녹음은 측정 중에만 이뤄지며 저장되지 않습니다.</li>
+      <li>Face ID: 기기 내 보증서 보관함 잠금 해제에만 사용. 생체 정보는 기기를 떠나지 않습니다.</li>
+      <li>위치: 날씨 조회를 위한 '앱 사용 중' 1회성 대략적 위치.</li>
+      <li>알림: 정비, 와인딩, 솔라 충전 로컬 알림. 네트워크 불필요.</li>
+    </ul>
+
+    <h2>6. 아동</h2>
+    <p>본 앱은 13세 미만 아동을 대상으로 하지 않으며 아동 데이터를 고의로 수집하지 않습니다.</p>
+
+    <h2>7. 정책 변경</h2>
+    <p>정책이 변경되면 이 페이지에 업데이트된 버전과 날짜를 게시합니다.</p>
+
+    <h2>8. 문의</h2>
+    <p>정책에 대한 질문은 <a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>으로 연락해 주세요.</p>
+  </section>
+
+  <!-- ───────────── العربية (RTL) ───────────── -->
+  <section class="lang" id="ar" lang="ar" dir="rtl">
+    <h1>سياسة خصوصية WoWatch</h1>
+    <p class="updated">آخر تحديث: 16 سبتمبر 2026</p>
+
+    <p>WoWatch («التطبيق») أداة لإدارة مجموعتك الشخصية من الساعات وقياسات الدقة وقيمة المجموعة وتذكيرات الصيانة. مبدأنا بسيط: <strong>بياناتك تخصّك وتبقى، افتراضيًا، مخزّنة بالكامل على جهازك.</strong></p>
+
+    <h2>1. البيانات التي نجمعها</h2>
+    <ul>
+      <li><strong>لا نشغّل أي خوادم، ولا نوفّر حسابات، ولا نجمع الاسم أو رقم الهاتف أو بيانات الاتصال أو أي معلومات تعريفية.</strong></li>
+      <li><strong>بيانات وصور الساعات:</strong> تفاصيل الساعات والصور وصور الألبوم والتسجيلات الصوتية ونتائج القياس التي تنشئها تُخزَّن محليًا على جهازك (تخزين SwiftData) ولا تُرفع إلينا إطلاقًا.</li>
+      <li><strong>الموقع (تقريبي، لمرة واحدة):</strong> عند استخدام ميزة الطقس فقط، يقرأ التطبيق موقعًا تقريبيًا على مستوى المدينة (بدقة حوالي 3 كم) لمرة واحدة ويرسله مباشرةً إلى خدمة الطقس العامة التابعة لجهة خارجية <a href="https://open-meteo.com">Open-Meteo</a> للاستعلام عن الطقس المحلي وتذكيرك بشحن الساعات الشمسية في الأيام المشمسة. لا يُحفظ هذا الموقع في التطبيق، ولا يُربط بهويتك، ولا يُستخدم للتتبّع. يمكنك رفض إذن الموقع وتبقى جميع الميزات الأخرى متاحة.</li>
+      <li><strong>الوقت الشبكي:</strong> ترسل مزامنة الوقت طلب NTP قياسيًا بحجم حوالي 48 بايت إلى خوادم وقت عامة (Apple وCloudflare وGoogle وعلي بابا كلاود وpool.ntp.org)، ولا يحتوي الطلب على أي معلومات شخصية.</li>
+      <li><strong>أسعار الصرف اللحظية:</strong> عند إدخال أسعار الشراء بعملات متعددة أو عرض قيمة المجموعة، يجلب التطبيق أسعار صرف عامة من الخدمة العامة التابعة لجهة خارجية <a href="https://www.exchangerate-api.com">open.er-api.com</a> عند فتح المكتبة (تُخزَّن مؤقتًا على الجهاز لمدة 15 دقيقة دون طلبات متكررة خلالها) لتحويل الأسعار بالعملات المختلفة وجمعها. يقتصر الطلب على جلب الأسعار العامة، <strong>ولا يحتوي على أي بيانات لساعاتك أو موقعك أو معلوماتك التعريفية</strong>؛ وفي حال انقطاع الاتصال أو فشل الطلب، يستخدم التطبيق الأسعار المخزّنة مؤقتًا أو الأسعار التقريبية المضمّنة دون التأثير على عمل الميزة.</li>
+    </ul>
+
+    <h2>2. استخدام البيانات</h2>
+    <ul>
+      <li>تُستخدم البيانات المحلية فقط داخل التطبيق لعرض مجموعتك وقياس دقة السير وإنشاء تذكيرات الصيانة والتعبئة والشحن الشمسي.</li>
+      <li>لا يحتوي التطبيق على إعلانات أو أي أدوات تتبّع تابعة لجهات خارجية، ولا يتتبّعك عبر التطبيقات أو المواقع.</li>
+    </ul>
+
+    <h2>3. المشاركة والإفصاح</h2>
+    <p>لا نبيع أو نؤجّر أو نفصح عن بياناتك الشخصية لأي طرف ثالث. تُرسَل طلبات الطقس مباشرةً من جهازك إلى Open-Meteo وتنطبق <a href="https://open-meteo.com/en/legal">سياستها للخصوصية</a>؛ وتُجلَب أسعار الصرف مباشرةً من open.er-api.com الذي تشغّله <a href="https://www.exchangerate-api.com">ExchangeRate-API</a> وتنطبق شروطه. لا يحتوي أي من الطلبين على بياناتك الشخصية.</p>
+
+    <h2>4. تخزين البيانات وحذفها</h2>
+    <ul>
+      <li>تُخزَّن البيانات على جهازك؛ وملفات JSON المصدرة عبر النسخ الاحتياطي/الاستعادة تبقى تحت إدارتك.</li>
+      <li>حذف ساعة أو حذف التطبيق يزيل البيانات المقابلة نهائيًا من جهازك.</li>
+      <li>قد يقوم iOS بنسخ بيانات التطبيق احتياطيًا عبر نسخة iCloud الاحتياطية المشفّرة الخاصة بك، وفق شروط خصوصية Apple.</li>
+    </ul>
+
+    <h2>5. أذونات النظام</h2>
+    <ul>
+      <li>الكاميرا: تصوير الساعة لمقارنة الوقت، فقط عند التقاط صورة بنفسك.</li>
+      <li>مكتبة الصور: اختيار صور الساعات؛ لا يكتب التطبيق في مكتبة صورك دون إجراء منك.</li>
+      <li>الميكروفون: تسجيل صوت الميزان لقياس دقة الساعة الميكانيكية؛ يحدث التسجيل أثناء الاختبار فقط ولا يُحفظ.</li>
+      <li>بصمة الوجه (Face ID): لفتح خزنة بطاقة الضمان على الجهاز فقط؛ لا تغادر البيانات الحيوية الجهاز إطلاقًا.</li>
+      <li>الموقع: موقع تقريبي لمرة واحدة «أثناء الاستخدام» للاستعلام عن الطقس.</li>
+      <li>الإشعارات: تذكيرات محلية للصيانة والتعبئة والشحن الشمسي؛ دون الحاجة إلى اتصال بالشبكة.</li>
+    </ul>
+
+    <h2>6. الأطفال</h2>
+    <p>التطبيق غير موجَّه للأطفال دون سن 13 عامًا ولا يجمع عن قصد أي بيانات منهم.</p>
+
+    <h2>7. تحديثات السياسة</h2>
+    <p>عند تغيير هذه السياسة، سننشر النسخة المحدّثة وتاريخها على هذه الصفحة.</p>
+
+    <h2>8. التواصل معنا</h2>
+    <p>لأي أسئلة حول هذه السياسة، تواصل معنا عبر: <a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a></p>
+  </section>
+
+  <div class="footer-links">
+    <a class="pill-link" href="support.html">客户支持 / 客戶支援 / Support / Assistance / Kundensupport / サポート / 고객 지원 / الدعم</a>
+  </div>
+  <p class="copyright">© 2026 WoWatch</p>
+
+</div>
 </body>
 </html>

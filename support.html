@@ -3,56 +3,508 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WoWatch 支持 · Support</title>
+<title>WoWatch 支持 · 支援 · Support · Assistance · Kundensupport · サポート · 고객 지원 · الدعم</title>
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-         max-width: 760px; margin: 0 auto; padding: 24px 18px 64px;
-         line-height: 1.7; color: #1d1d1f; background: #fbfbfd; }
-  h1 { font-size: 26px; } h2 { font-size: 19px; margin-top: 30px; }
-  hr { border: none; border-top: 1px solid #e5e5ea; margin: 36px 0; }
-  .muted { color: #6e6e73; font-size: 13px; }
+  :root {
+    color-scheme: light dark;
+    /* 莫兰迪 token —— 与 App Theme.swift 同源 */
+    --page: #f2ede6;            /* 燕麦米白 */
+    --ink: #2b2721;
+    --muted: #80776c;
+    --card: rgba(255, 253, 248, 0.70);
+    --card-strong: rgba(255, 254, 250, 0.90);
+    --stroke: rgba(60, 48, 36, 0.08);
+    --highlight: rgba(255, 255, 255, 0.70);
+    --accent: #556877;          /* 雾霾蓝（文字强调） */
+    --accent-fill: #7a8b9b;
+    --accent-soft: rgba(122, 139, 155, 0.14);
+    --aura-1: rgba(122, 139, 155, 0.34);   /* 雾霾蓝光斑 */
+    --aura-2: rgba(155, 143, 158, 0.28);   /* 烟紫光斑 */
+    --aura-3: rgba(194, 166, 122, 0.30);   /* 沙金光斑 */
+    --shadow: rgba(58, 46, 34, 0.12);
+  }
   @media (prefers-color-scheme: dark) {
-    body { background: #1c1c1e; color: #f2f2f7; }
-    hr { border-color: #38383a; } .muted { color: #98989d; }
+    :root {
+      --page: #1a1815;          /* 暖炭近黑 */
+      --ink: #f2ede6;
+      --muted: #a89e92;
+      --card: rgba(40, 36, 31, 0.60);
+      --card-strong: rgba(44, 40, 34, 0.86);
+      --stroke: rgba(255, 255, 255, 0.10);
+      --highlight: rgba(255, 255, 255, 0.09);
+      --accent: #9db4c6;
+      --accent-fill: #9db4c6;
+      --accent-soft: rgba(157, 180, 198, 0.20);
+      --aura-1: rgba(157, 180, 198, 0.24);
+      --aura-2: rgba(189, 174, 193, 0.20);
+      --aura-3: rgba(212, 188, 142, 0.18);
+      --shadow: rgba(0, 0, 0, 0.50);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                 "PingFang SC", "PingFang TC", "Hiragino Sans GB", "Hiragino Sans",
+                 "Yu Gothic", "Apple SD Gothic Neo",
+                 "Helvetica Neue", "Segoe UI", "Geeza Pro", "Noto Naskh Arabic",
+                 Arial, sans-serif;
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 莫兰迪漫散光斑（Liquid Glass 的折射环境） ── */
+  .aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .aurora span {
+    position: absolute; width: 46vmax; height: 46vmax; border-radius: 50%;
+    filter: blur(90px); will-change: transform;
+  }
+  .aurora .b1 { background: var(--aura-1); top: -18vmax; left: -10vmax; animation: drift1 26s ease-in-out infinite alternate; }
+  .aurora .b2 { background: var(--aura-2); bottom: -22vmax; right: -14vmax; animation: drift2 32s ease-in-out infinite alternate; }
+  .aurora .b3 { background: var(--aura-3); top: 30vh; right: 18vw; width: 30vmax; height: 30vmax; animation: drift3 38s ease-in-out infinite alternate; }
+  @keyframes drift1 { to { transform: translate(6vmax, 5vmax) scale(1.12); } }
+  @keyframes drift2 { to { transform: translate(-5vmax, -6vmax) scale(1.08); } }
+  @keyframes drift3 { to { transform: translate(-4vmax, 7vmax) scale(0.92); } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .aurora span { animation: none; }
+  }
+
+  .wrap { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 0 18px 72px; }
+
+  /* ── Hero 玻璃卡 ── */
+  .hero {
+    margin: 40px 0 14px; padding: 36px 32px 30px; text-align: center;
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 28px;
+    backdrop-filter: blur(30px) saturate(1.7);
+    -webkit-backdrop-filter: blur(30px) saturate(1.7);
+    box-shadow: 0 1px 0 var(--highlight) inset, 0 24px 60px -18px var(--shadow);
+  }
+  .brand-badge {
+    display: block; width: 72px; height: 72px; margin: 0 auto 16px;
+    border-radius: 22.37%;   /* 近似 iOS 连续曲率圆角（squircle） */
+    overflow: hidden;
+    box-shadow: 0 16px 34px -12px var(--shadow), 0 2px 8px rgba(0, 0, 0, 0.10);
+    transition: transform .25s ease;
+  }
+  .brand-badge:hover { transform: translateY(-2px) scale(1.04); }
+  .brand-badge img { display: block; width: 100%; height: 100%; }
+  .hero h1 { font-size: 28px; margin: 4px 0 10px; letter-spacing: 0.2px; }
+  .hero p { margin: 0; color: var(--muted); font-size: 15px; }
+  .date-pill {
+    display: inline-block; margin-top: 16px; padding: 5px 14px;
+    font-size: 12.5px; color: var(--accent);
+    background: var(--accent-soft); border-radius: 999px;
+    border: 1px solid var(--stroke);
+  }
+
+  /* ── 语言切换玻璃胶囊 ── */
+  .lang-nav {
+    position: sticky; top: 12px; z-index: 10;
+    margin: 18px 0 8px; padding: 6px;
+    display: flex; gap: 4px; justify-content: center; flex-wrap: wrap;
+    background: var(--card-strong);
+    border: 1px solid var(--stroke);
+    border-radius: 999px;
+    backdrop-filter: blur(24px) saturate(1.6);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6);
+    box-shadow: 0 1px 0 var(--highlight) inset, 0 12px 32px -14px var(--shadow);
+  }
+  .lang-nav a {
+    padding: 6px 15px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; text-decoration: none;
+    color: var(--muted); transition: color .2s ease, background .2s ease;
+  }
+  .lang-nav a:hover { color: var(--ink); background: var(--accent-soft); }
+
+  /* ── 语言分区 ── */
+  section.lang { margin: 22px 0; scroll-margin-top: 84px; }
+  section.lang > h1 {
+    font-size: 23px; margin: 0 2px 14px;
+  }
+  section.lang:target > h1 { color: var(--accent); }
+
+  /* ── 联系 / FAQ 玻璃卡 ── */
+  .glass {
+    margin: 14px 0; padding: 22px 24px;
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 20px;
+    backdrop-filter: blur(26px) saturate(1.6);
+    -webkit-backdrop-filter: blur(26px) saturate(1.6);
+    box-shadow: 0 1px 0 var(--highlight) inset, 0 14px 40px -18px var(--shadow);
+  }
+  .glass.contact { text-align: center; padding: 26px 24px; }
+  .glass.contact .mail {
+    display: inline-block; margin: 8px 0 4px;
+    font-size: 17px; font-weight: 650; color: var(--accent); text-decoration: none;
+    word-break: break-all;
+  }
+  .glass.contact .mail:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .glass.contact .sla { color: var(--muted); font-size: 14px; margin: 2px 0 0; }
+
+  h2.faq-title {
+    font-size: 15px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+    color: var(--muted); margin: 26px 4px 4px;
+  }
+  .faq p { margin: 0; }
+  .faq .q {
+    display: block; margin-bottom: 6px;
+    font-weight: 650; color: var(--accent);
+  }
+  .faq .q::before {
+    content: ""; display: inline-block; width: 7px; height: 7px;
+    margin: 0 9px 2px 0; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-fill), #9b8f9e);
+  }
+
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  strong { font-weight: 650; }
+
+  /* ── 阿拉伯语 RTL 镜像 ── */
+  section[dir="rtl"] { text-align: right; line-height: 1.95; }
+  section[dir="rtl"] .q::before { margin: 0 0 2px 9px; }
+
+  .footer-links { text-align: center; margin-top: 30px; }
+  .pill-link {
+    display: inline-block; margin: 4px 6px; padding: 9px 20px;
+    border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 600;
+    color: var(--accent); background: var(--card-strong);
+    border: 1px solid var(--stroke);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 1px 0 var(--highlight) inset, 0 8px 22px -12px var(--shadow);
+    transition: transform .18s ease;
+  }
+  .pill-link:hover { transform: translateY(-1px); }
+  .copyright { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 22px; }
+
+  @media (max-width: 560px) {
+    .hero { padding: 30px 22px 26px; border-radius: 24px; }
+    section.lang { scroll-margin-top: 108px; }
+    .glass { padding: 18px 18px; border-radius: 18px; }
+    .lang-nav a { padding: 6px 13px; font-size: 13px; }
   }
 </style>
 </head>
 <body>
 
-<h1>WoWatch 客户支持</h1>
-<p class="muted">最后更新：2026 年 9 月 13 日</p>
+<div class="aurora" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
 
-<h2>联系我们</h2>
-<p>使用中遇到问题或有建议，欢迎邮件联系：<a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a></p>
-<p>我们会在 3 个工作日内回复（中文 / English）。</p>
+<div class="wrap">
 
-<h2>常见问题</h2>
-<p><strong>Q：我的腕表数据会上传吗？</strong><br>不会。所有数据默认仅保存在本机，你可以通过「工具箱 → 备份恢复」自行导出 JSON 备份。</p>
-<p><strong>Q：天气按钮显示不可用？</strong><br>天气需要一次性城市级定位权限（数据来自免费的 Open-Meteo）。可在系统「设置 → WoWatch → 位置」中重新允许；拒绝定位不影响其他功能。</p>
-<p><strong>Q：如何在主页切换「服役 / 收藏 / 来日 / 已出」？</strong><br>在表库页左右滑动，或点按底部状态导轨上的小圆点。</p>
-<p><strong>Q：照片/麦克风测时结果差异很大？</strong><br>照片测时请将表冠对准 3 点位、尽量在指针位于表盘下半部时拍摄；麦克风测时请在安静环境贴近表背录制，并确认振频（bph）设置正确。</p>
-<p><strong>Q：删除应用后数据还在吗？</strong><br>删除应用会同时删除本机全部数据，请先用备份功能导出保存。</p>
+  <header class="hero">
+    <picture class="brand-badge">
+      <source srcset="assets/app-icon-dark.png" media="(prefers-color-scheme: dark)">
+      <img src="assets/app-icon-light.png" alt="WoWatch" width="72" height="72">
+    </picture>
+    <h1>WoWatch</h1>
+    <p>客户支持 · 客戶支援 · Support · Assistance client · Kundensupport · カスタマーサポート · 고객 지원 · دعم العملاء</p>
+    <span class="date-pill">2026-09-16</span>
+  </header>
 
-<p><a href="privacy.html">隐私政策 / Privacy Policy</a></p>
+  <nav class="lang-nav" aria-label="语言 / Language / Langue / Sprache / 言語 / 언어 / اللغة">
+    <a href="#zh">简体中文</a>
+    <a href="#hant">繁體中文</a>
+    <a href="#en">English</a>
+    <a href="#fr">Français</a>
+    <a href="#de">Deutsch</a>
+    <a href="#ja">日本語</a>
+    <a href="#ko">한국어</a>
+    <a href="#ar">العربية</a>
+  </nav>
 
-<hr>
+  <!-- ───────────── 中文 ───────────── -->
+  <section class="lang" id="zh" lang="zh-Hans">
+    <h1>WoWatch 客户支持</h1>
 
-<h1>WoWatch Support</h1>
-<p class="muted">Last updated: September 13, 2026</p>
+    <div class="glass contact">
+      <p>使用中遇到问题或有建议，欢迎邮件联系：</p>
+      <a class="mail" href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>
+      <p class="sla">我们会在 3 个工作日内回复（中文 / English）。</p>
+    </div>
 
-<h2>Contact</h2>
-<p>For questions or feedback, email <a href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>.</p>
-<p>We reply within 3 business days (Chinese / English).</p>
+    <h2 class="faq-title">常见问题</h2>
 
-<h2>FAQ</h2>
-<p><strong>Q: Are my watches uploaded anywhere?</strong><br>No. All data stays on your device. Use “Toolbox → Backup” to export a JSON copy whenever you like.</p>
-<p><strong>Q: Weather shows unavailable?</strong><br>Weather needs one-time coarse location permission (data from the free Open-Meteo service). Re-enable it in Settings → WoWatch → Location. Denying it does not affect other features.</p>
-<p><strong>Q: How do I switch status tabs?</strong><br>Swipe left/right on the library page, or tap the dots on the bottom status rail.</p>
-<p><strong>Q: Timing results look off?</strong><br>For photo timing align the crown at 3 o'clock and shoot when hands are on the lower half of the dial. For mic timing record close to the case back in a quiet place and verify the beat frequency (bph).</p>
-<p><strong>Q: Does deleting the app erase my data?</strong><br>Yes — export a backup first.</p>
+    <div class="glass faq">
+      <p><span class="q">我的腕表数据会上传吗？</span>不会。所有数据默认仅保存在本机，你可以通过「工具箱 → 备份恢复」自行导出 JSON 备份。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">天气按钮显示不可用？</span>天气需要一次性城市级定位权限（数据来自免费的 Open-Meteo）。可在系统「设置 → WoWatch → 位置」中重新允许；拒绝定位不影响其他功能。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">如何在主页切换「服役 / 来日 / 收藏 / 已出」？</span>在表库页左右滑动，或点按底部状态导轨上的小圆点。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">如何快速找到某只表？</span>在表库页顶部搜索框输入品牌名（含中文名或 PP、AP 等简称）、型号、机芯型号、产地或备注，即可在本机即时筛选，无需联网。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">收藏总价值是怎么算的？汇率从哪里来？</span>总价值仅统计「服役 + 收藏」状态且填写了价格的腕表，结算币种取其中使用最多的币种。添加或编辑腕表时可为每只表选择币种（人民币、美元、港币、欧元、英镑、日元、韩元、卢布、里亚尔）；实时汇率来自公开服务 open.er-api.com，进入表库时自动更新（15 分钟缓存）。离线时使用上次缓存或内置近似汇率，可能与实时牌价存在偏差。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">照片/麦克风测时结果差异很大？</span>照片测时请将表冠对准 3 点位、尽量在指针位于表盘下半部时拍摄；麦克风测时请在安静环境贴近表背录制，并确认振频（bph）设置正确。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">删除应用后数据还在吗？</span>删除应用会同时删除本机全部数据，请先用备份功能导出保存。</p>
+    </div>
+  </section>
 
-<p><a href="privacy.html">Privacy Policy</a></p>
+  <!-- ───────────── English ───────────── -->
+  <section class="lang" id="en" lang="en">
+    <h1>WoWatch Support</h1>
 
+    <div class="glass contact">
+      <p>For questions or feedback, email us:</p>
+      <a class="mail" href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>
+      <p class="sla">We reply within 3 business days (Chinese / English).</p>
+    </div>
+
+    <h2 class="faq-title">FAQ</h2>
+
+    <div class="glass faq">
+      <p><span class="q">Are my watches uploaded anywhere?</span>No. All data stays on your device. Use “Toolbox → Backup” to export a JSON copy whenever you like.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Weather shows unavailable?</span>Weather needs one-time coarse location permission (data from the free Open-Meteo service). Re-enable it in Settings → WoWatch → Location. Denying it does not affect other features.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">How do I switch status tabs (Worn / Wish / Stored / Sold)?</span>Swipe left/right on the library page, or tap the dots on the bottom status rail.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">How do I quickly find a watch?</span>Use the search field at the top of the library: type a brand (Chinese name or abbreviations like PP/AP), model, movement, country or notes. Filtering runs entirely on your device, no network needed.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">How is the collection value calculated? Where do rates come from?</span>Only watches with a price in the “Worn” and “Stored” tabs are totaled, and the settlement currency is the one used most often among them. You can pick a currency per watch (CNY, USD, HKD, EUR, GBP, JPY, KRW, RUB, SAR). Live rates come from the public open.er-api.com service and refresh automatically when you open the library (cached for 15 minutes). Offline, the app uses cached or built-in approximate rates, which may differ from live rates.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Timing results look off?</span>For photo timing align the crown at 3 o’clock and shoot when hands are on the lower half of the dial. For mic timing record close to the case back in a quiet place and verify the beat frequency (bph).</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Does deleting the app erase my data?</span>Yes — export a backup first.</p>
+    </div>
+  </section>
+
+  <!-- ───────────── Français ───────────── -->
+  <section class="lang" id="fr" lang="fr">
+    <h1>Assistance client WoWatch</h1>
+
+    <div class="glass contact">
+      <p>Une question ou une suggestion ? Écrivez-nous :</p>
+      <a class="mail" href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>
+      <p class="sla">Nous répondons sous 3 jours ouvrés (français / English).</p>
+    </div>
+
+    <h2 class="faq-title">Questions fréquentes</h2>
+
+    <div class="glass faq">
+      <p><span class="q">Mes données de montres sont-elles envoyées en ligne ?</span>Non. Toutes les données restent sur votre appareil. Utilisez « Boîte à outils → Sauvegarde » pour exporter une copie JSON quand vous le souhaitez.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">La météo est indisponible ?</span>La météo nécessite une autorisation de localisation approximative ponctuelle (données du service gratuit Open-Meteo). Réactivez-la dans Réglages → WoWatch → Localisation. Refuser la localisation n'affecte pas les autres fonctions.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Comment changer d'onglet de statut (Portée / Souhait / Collection / Vendue) ?</span>Balayez la page de la collection vers la gauche ou la droite, ou touchez les points sur le rail de statut inférieur.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Comment retrouver rapidement une montre ?</span>Utilisez le champ de recherche en haut de la collection : saisissez une marque (nom chinois ou abréviations telles que PP/AP), un modèle, un mouvement, un pays ou une note. Le filtrage s'effectue entièrement sur votre appareil, sans connexion réseau.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Comment la valeur de la collection est-elle calculée ? D'où viennent les taux ?</span>Seules les montres ayant un prix dans les onglets « Portée » et « Collection » sont totalisées ; la devise de règlement est celle utilisée le plus souvent. Vous pouvez choisir une devise par montre (CNY, USD, HKD, EUR, GBP, JPY, KRW, RUB, SAR). Les taux proviennent du service public open.er-api.com et s'actualisent automatiquement à l'ouverture de la collection (cache de 15 minutes). Hors ligne, l'application utilise des taux en cache ou des taux approximatifs intégrés, qui peuvent différer des taux en direct.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Les mesures de marche vous semblent incohérentes ?</span>En photo, alignez la couronne à 3 heures et photographiez quand les aiguilles sont sur la moitié inférieure du cadran. Au micro, enregistrez près du fond du boîtier dans un endroit calme et vérifiez la fréquence de battement (bph).</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">La suppression de l'application efface-t-elle mes données ?</span>Oui — exportez d'abord une sauvegarde.</p>
+    </div>
+  </section>
+
+  <!-- ───────────── Deutsch ───────────── -->
+  <section class="lang" id="de" lang="de">
+    <h1>WoWatch Kundensupport</h1>
+
+    <div class="glass contact">
+      <p>Bei Fragen oder Feedback schreiben Sie uns:</p>
+      <a class="mail" href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>
+      <p class="sla">Antwort innerhalb von 3 Werktagen (Deutsch / English).</p>
+    </div>
+
+    <h2 class="faq-title">Häufige Fragen</h2>
+
+    <div class="glass faq">
+      <p><span class="q">Werden meine Uhren irgendwo hochgeladen?</span>Nein. Alle Daten bleiben auf Ihrem Gerät. Über „Werkzeugkasten → Backup" können Sie jederzeit eine JSON-Kopie exportieren.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Das Wetter ist nicht verfügbar?</span>Wetter benötigt eine einmalige grobe Standortberechtigung (Daten vom kostenlosen Open-Meteo-Dienst). Erneut aktivieren unter Einstellungen → WoWatch → Standort. Eine Verweigerung beeinträchtigt andere Funktionen nicht.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Wie wechsle ich die Status-Registerkarten (In Gebrauch / Wunsch / Gespeichert / Verkauft)?</span>Wischen Sie auf der Sammlungsseite nach links oder rechts oder tippen Sie auf die Punkte in der unteren Statusleiste.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Wie finde ich schnell eine Uhr?</span>Nutzen Sie das Suchfeld oben in der Sammlung: Marke (chinesischer Name oder Kürzel wie PP/AP), Modell, Kaliber, Land oder Notizen eingeben. Die Filterung läuft vollständig auf dem Gerät, ohne Netzwerk.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Wie wird der Sammlungswert berechnet? Woher stammen die Kurse?</span>Es werden nur Uhren mit Preis in den Registerkarten „In Gebrauch" und „Gespeichert" summiert; als Abrechnungswährung dient die am häufigsten verwendete. Pro Uhr kann eine Währung gewählt werden (CNY, USD, HKD, EUR, GBP, JPY, KRW, RUB, SAR). Die Live-Kurse stammen vom öffentlichen Dienst open.er-api.com und werden beim Öffnen der Sammlung automatisch aktualisiert (15 Min. Cache). Offline verwendet die App zwischengespeicherte oder eingebaute ungefähre Kurse, die von den Live-Kursen abweichen können.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Die Zeitmessung scheint ungenau?</span>Bei der Fotomessung die Krone auf 3 Uhr ausrichten und fotografieren, wenn die Zeiger auf der unteren Zifferblatthälfte stehen. Bei der Mikrofonmessung nah am Gehäuseboden an ruhiger Stelle aufnehmen und die Halbschwingung (bph) prüfen.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">Werden beim Löschen der App meine Daten gelöscht?</span>Ja — exportieren Sie vorher ein Backup.</p>
+    </div>
+  </section>
+
+  <!-- ───────────── 繁體中文 ───────────── -->
+  <section class="lang" id="hant" lang="zh-Hant">
+    <h1>WoWatch 客戶支援</h1>
+
+    <div class="glass contact">
+      <p>使用中遇到問題或有建議，歡迎電子郵件聯絡：</p>
+      <a class="mail" href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>
+      <p class="sla">我們會在 3 個工作天內回覆（中文 / English）。</p>
+    </div>
+
+    <h2 class="faq-title">常見問題</h2>
+
+    <div class="glass faq">
+      <p><span class="q">我的腕錶資料會上傳嗎？</span>不會。所有資料預設僅儲存在本機，你可以透過「工具箱 → 備份恢復」自行匯出 JSON 備份。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">天氣按鈕顯示無法使用？</span>天氣需要一次性城市級定位權限（資料來自免費的 Open-Meteo）。可在系統「設定 → WoWatch → 位置」中重新允許；拒絕定位不影響其他功能。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">如何在主頁切換「服役 / 來日 / 收藏 / 已出」？</span>在錶庫頁左右滑動，或點按底部狀態導軌上的小圓點。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">如何快速找到某隻錶？</span>在錶庫頁頂端搜尋框輸入品牌名（含中文名或 PP、AP 等簡稱）、型號、機芯型號、產地或備註，即可在本機即時篩選，無需連網。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">收藏總價值怎麼算？匯率從哪裡來？</span>總價值僅統計「服役 + 收藏」狀態且填寫了價格的腕錶，結算幣別取其中使用最多的幣別。新增或編輯腕錶時可為每隻錶選擇幣別（人民幣、美元、港幣、歐元、英鎊、日元、韓元、盧布、里亞爾）；即時匯率來自公開服務 open.er-api.com，進入錶庫時自動更新（15 分鐘快取）。離線時使用上次快取或內建近似匯率，可能與即時牌價存在偏差。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">照片／麥克風測時結果差異很大？</span>照片測時請將錶冠對準 3 點位、盡量在指針位於錶盤下半部時拍攝；麥克風測時請在安靜環境貼近錶背錄製，並確認振頻（bph）設定正確。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">刪除應用程式後資料還在嗎？</span>刪除應用程式會同時刪除本機全部資料，請先用備份功能匯出儲存。</p>
+    </div>
+  </section>
+
+  <!-- ───────────── 日本語 ───────────── -->
+  <section class="lang" id="ja" lang="ja">
+    <h1>WoWatch カスタマーサポート</h1>
+
+    <div class="glass contact">
+      <p>ご不明な点やご提案はメールでお問い合わせください：</p>
+      <a class="mail" href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>
+      <p class="sla">3営業日以内にご返信します（日本語 / English）。</p>
+    </div>
+
+    <h2 class="faq-title">よくある質問</h2>
+
+    <div class="glass faq">
+      <p><span class="q">時計データはどこかにアップロードされますか？</span>いいえ。すべてのデータは端末にのみ保存されます。「ツールボックス → バックアップ」からいつでもJSONのコピーを書き出せます。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">天気が利用できないと表示されますか？</span>天気には1回限りのおおまかな位置情報の許可が必要です（データは無料のOpen-Meteoサービスを利用）。設定 → WoWatch → 位置情報から再度許可できます。拒否しても他の機能には影響しません。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">ステータス（着用中 / 欲しい / 保管 / 売却済）はどう切り替えますか？</span>ライブラリ画面を左右にスワイプするか、下部ステータスレールの点をタップしてください。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">時計をすぐに見つける方法は？</span>ライブラリ上部の検索フィールドに、ブランド名、モデル名、ムーブメント型番、生産国、メモなどを入力すると、端末内ですぐに絞り込めます。ネット接続は不要です。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">コレクション総額はどう計算されますか？レートはどこから来ますか？</span>「着用中」と「保管」タブにある価格入力済みの時計のみを合計し、集計通貨にはその中で最も多く使われている通貨が使われます。時計ごとに通貨（CNY、USD、HKD、EUR、GBP、JPY、KRW、RUB、SAR）を選択できます。リアルタイムレートは公開サービス open.er-api.com から取得し、ライブラリを開くと自動更新されます（15分キャッシュ）。オフライン時は前回のキャッシュまたは内蔵の概算レートを使用するため、実勢レートと差異が生じる場合があります。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">写真/マイクの測定結果に大きなばらつきがありますか？</span>写真測定ではリューズを3時位置に合わせ、針が文字盤の下半分にある状態で撮影してください。マイク測定では静かな場所でケースバックに近づけて録音し、振動数（bph）の設定を確認してください。</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">アプリを削除するとデータは残りますか？</span>アプリを削除すると端末上のすべてのデータが消去されます。先にバックアップを書き出してください。</p>
+    </div>
+  </section>
+
+  <!-- ───────────── 한국어 ───────────── -->
+  <section class="lang" id="ko" lang="ko">
+    <h1>WoWatch 고객 지원</h1>
+
+    <div class="glass contact">
+      <p>사용 중 문제가 있거나 제안이 있으시면 이메일로 연락해 주세요:</p>
+      <a class="mail" href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>
+      <p class="sla">영업일 기준 3일 이내에 답변드립니다(한국어 / English).</p>
+    </div>
+
+    <h2 class="faq-title">자주 묻는 질문</h2>
+
+    <div class="glass faq">
+      <p><span class="q">제 시계 데이터가 어딘가에 업로드되나요?</span>아니요. 모든 데이터는 기기에만 저장됩니다. '도구상자 → 백업'에서 언제든 JSON 사본을 내보낼 수 있습니다.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">날씨를 사용할 수 없다고 나와요.</span>날씨는 1회성 대략적 위치 권한이 필요합니다(데이터는 무료 Open-Meteo 서비스 제공). 설정 → WoWatch → 위치에서 다시 허용할 수 있습니다. 거부해도 다른 기능에는 영향이 없습니다.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">상태(착용 중 / 위시리스트 / 수장 / 판매 완료)는 어떻게 전환하나요?</span>라이브러리 페이지를 좌우로 스와이프하거나 하단 상태 레일의 점을 탭하세요.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">시계를 빠르게 찾는 방법은?</span>라이브러리 상단 검색창에 브랜드, 모델명, 무브먼트 모델, 생산국 또는 메모를 입력하면 기기에서 바로 필터링되며 네트워크가 필요 없습니다.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">컬렉션 총가치는 어떻게 계산되나요? 환율은 어디서 오나요?</span>'착용 중'과 '수장' 탭에 있고 가격이 입력된 시계만 합산되며, 정산 통화는 그중 가장 많이 사용된 통화입니다. 시계마다 통화(CNY, USD, HKD, EUR, GBP, JPY, KRW, RUB, SAR)를 선택할 수 있습니다. 실시간 환율은 공공 서비스 open.er-api.com에서 가져오며 라이브러리를 열 때 자동 갱신됩니다(15분 캐시). 오프라인에서는 이전 캐시나 내장된 근사 환율을 사용하므로 실시간 환율과 차이가 있을 수 있습니다.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">사진/마이크 측정 결과 차이가 커요.</span>사진 측정은 용두를 3시 방향에 맞추고 바늘이 다이얼 아래쪽 절반에 있을 때 촬영하세요. 마이크 측정은 조용한 곳에서 케이스 백에 가까이 대고 녹음한 뒤 진동수(bph) 설정을 확인하세요.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">앱을 삭제하면 데이터도 사라지나요?</span>네. 먼저 백업을 내보내세요.</p>
+    </div>
+  </section>
+
+  <!-- ───────────── العربية (RTL) ───────────── -->
+  <section class="lang" id="ar" lang="ar" dir="rtl">
+    <h1>دعم عملاء WoWatch</h1>
+
+    <div class="glass contact">
+      <p>لأي سؤال أو اقتراح، راسلنا عبر البريد الإلكتروني:</p>
+      <a class="mail" href="mailto:wowatch_official@outlook.com">wowatch_official@outlook.com</a>
+      <p class="sla">نرد خلال 3 أيام عمل (العربية / English).</p>
+    </div>
+
+    <h2 class="faq-title">الأسئلة الشائعة</h2>
+
+    <div class="glass faq">
+      <p><span class="q">هل تُرفع ساعاتي إلى أي مكان؟</span>لا. جميع البيانات تبقى على جهازك، ويمكنك تصدير نسخة JSON احتياطية عبر «نسخة احتياطية» في قائمة الأدوات وقتما تشاء.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">الطقس يظهر أنه غير متاح؟</span>يحتاج الطقس إلى إذن موقع تقريبي لمرة واحدة (البيانات من خدمة Open-Meteo المجانية). أعد تفعيله من إعدادات النظام: WoWatch ثم الموقع. رفض الإذن لا يؤثر على بقية الميزات.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">كيف أبدّل بين حالات الساعات (قيد الاستخدام / أمنية / محفوظة / مباعة)؟</span>اسحب يمينًا أو يسارًا في صفحة المكتبة، أو اضغط على النقاط في شريط الحالة السفلي.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">كيف أجد ساعة بسرعة؟</span>استخدم حقل البحث أعلى المكتبة واكتب اسم العلامة أو الطراز أو رقم الماكينة أو بلد الصنع أو ملاحظة؛ تُنفَّذ التصفية بالكامل على جهازك دون اتصال بالشبكة.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">كيف تُحسب قيمة المجموعة؟ ومن أين تأتي الأسعار؟</span>تُجمَع فقط الساعات ذات السعر في حالتي «قيد الاستخدام» و«محفوظة»، وتكون عملة التسوية هي العملة الأكثر استخدامًا بينها. يمكنك اختيار عملة لكل ساعة (CNY وUSD وHKD وEUR وGBP وJPY وKRW وRUB وSAR). تأتي الأسعار اللحظية من الخدمة العامة open.er-api.com وتتحدّث تلقائيًا عند فتح المكتبة (تخزين مؤقت لمدة 15 دقيقة). وفي حال انقطاع الاتصال، يستخدم التطبيق أسعارًا مخزّنة مؤقتًا أو أسعارًا تقريبية مضمّنة قد تختلف عن الأسعار اللحظية.</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">نتائج قياس الصورة أو الميكروفون تبدو غير دقيقة؟</span>للقياس بالصورة وجّه التاج إلى الساعة 3 وصوّر عندما تكون العقارب في النصف السفلي من الميناء. وللقياس بالميكروفون سجّل قريبًا من ظهر العلبة في مكان هادئ وتحقق من تردد الاهتزاز (bph).</p>
+    </div>
+    <div class="glass faq">
+      <p><span class="q">هل يؤدي حذف التطبيق إلى مسح بياناتي؟</span>نعم — صدّر نسخة احتياطية أولًا.</p>
+    </div>
+  </section>
+
+  <div class="footer-links">
+    <a class="pill-link" href="privacy.html">隐私政策 / 隱私權政策 / Privacy Policy / Confidentialité / Datenschutz / プライバシー / 개인정보 처리방침 / سياسة الخصوصية</a>
+  </div>
+  <p class="copyright">© 2026 WoWatch</p>
+
+</div>
 </body>
 </html>
